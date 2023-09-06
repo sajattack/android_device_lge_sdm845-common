@@ -12,30 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-cc_defaults {
-    name: "livedisplay_lge_sdm845_defaults",
+cc_binary {
+    name: "vendor.lineage.livedisplay@2.1-service.lge_sdm845",
     defaults: ["hidl_defaults"],
+    vintf_fragments: ["vendor.lineage.livedisplay@2.1-service.lge_sdm845.xml"],
+    init_rc: ["vendor.lineage.livedisplay@2.1-service.lge_sdm845.rc"],
     relative_install_path: "hw",
     srcs: [
+        ":vendor.lineage.livedisplay@2.0-sdm-pa",
+        ":vendor.lineage.livedisplay@2.0-sdm-utils",
         "DisplayModes.cpp",
-        "PictureAdjustment.cpp",
+        "SunlightEnhancement.cpp",
         "service.cpp",
     ],
+    vendor: true,
     shared_libs: [
         "libbase",
         "libbinder",
-        "libcutils",
-        "libdl",
         "libhidlbase",
         "libutils",
         "vendor.lineage.livedisplay@2.0",
+        "vendor.lineage.livedisplay@2.1",
     ],
-}
-
-cc_binary {
-    name: "vendor.lineage.livedisplay@2.0-service.lge_sdm845",
-    vintf_fragments: ["vendor.lineage.livedisplay@2.0-service.lge_sdm845.xml"],
-    init_rc: ["vendor.lineage.livedisplay@2.0-service.lge_sdm845.rc"],
-    defaults: ["livedisplay_lge_sdm845_defaults"],
-    vendor: true,
+    header_libs: [
+        "vendor.lineage.livedisplay@2.0-sdm-headers",
+    ],
 }

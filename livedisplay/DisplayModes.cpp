@@ -21,7 +21,7 @@
 namespace vendor {
 namespace lineage {
 namespace livedisplay {
-namespace V2_0 {
+namespace V2_1 {
 namespace implementation {
 
 static constexpr const char* kModePath = "/sys/devices/virtual/panel/img_tune/screen_mode";
@@ -56,9 +56,9 @@ DisplayModes::DisplayModes() {
     setDisplayMode(mDefaultModeId, false);
 }
 
-// Methods from ::vendor::lineage::livedisplay::V2_0::IDisplayModes follow.
+// Methods from ::vendor::lineage::livedisplay::V2_1::IDisplayModes follow.
 Return<void> DisplayModes::getDisplayModes(getDisplayModes_cb resultCb) {
-    std::vector<DisplayMode> modes;
+    std::vector<V2_0::DisplayMode> modes;
     for (const auto& entry : kModeMap) {
         modes.push_back({entry.first, entry.second.name});
     }
@@ -112,7 +112,7 @@ Return<bool> DisplayModes::setDisplayMode(int32_t modeID, bool makeDefault) {
 }
 
 }  // namespace sdm
-}  // namespace V2_0
+}  // namespace V2_1
 }  // namespace livedisplay
 }  // namespace lineage
 }  // namespace vendor

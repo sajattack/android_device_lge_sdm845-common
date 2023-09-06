@@ -1,0 +1,7 @@
+get_prop(vendor_init, init_service_status_private_prop)
+#============= linkerconfig ==============
+allow linkerconfig self:capability kill;
+
+#============= odrefresh ==============
+allow odrefresh self:capability kill;
+allow kernel self:capability kill;
