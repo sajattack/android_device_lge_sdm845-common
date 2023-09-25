@@ -1,7 +1,18 @@
 soong_namespace {
     imports: [
-        "hardware/google/interfaces",
         "hardware/google/pixel",
         "hardware/qcom/bootctrl",
+        "hardware/google/interfaces",
     ],
+}
+
+cc_library_static {
+    name: "libinit_lge_sdm845",
+    recovery_available: true,
+    srcs: ["init/init_lge_sdm845.cpp"],
+    whole_static_libs: ["libbase"],
+    include_dirs: [
+        "system/libbase/include",
+        "system/core/init"
+    ]
 }

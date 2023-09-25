@@ -25,17 +25,17 @@ TARGET_ARCH_VARIANT := armv8-2a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_VARIANT := kryo385
 
-ifeq (,$(filter %_64,$(TARGET_PRODUCT)))
-TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-2a
-TARGET_2ND_CPU_ABI := armeabi-v7a
-TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := kryo385
-endif
+#ifeq (,$(filter %_64,$(TARGET_PRODUCT)))
+#TARGET_2ND_ARCH := arm
+#TARGET_2ND_ARCH_VARIANT := armv8-2a
+#TARGET_2ND_CPU_ABI := armeabi-v7a
+#TARGET_2ND_CPU_ABI2 := armeabi
+#TARGET_2ND_CPU_VARIANT := kryo385
+#endif
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sdm845
-TARGET_NO_BOOTLOADER := true
+TARGET_NO_BOOTLOADER := false
 
 # Platform
 TARGET_BOARD_PLATFORM := sdm845
@@ -102,7 +102,7 @@ DEVICE_MATRIX_FILE += $(COMMON_PATH)/compatibility_matrix.xml
 HWUI_COMPILE_FOR_PERF := true
 
 # Init
-TARGET_INIT_VENDOR_LIB := //$(COMMON_PATH):libinit_lge_sdm845
+TARGET_INIT_VENDOR_LIB := libinit_lge_sdm845
 TARGET_RECOVERY_DEVICE_MODULES := libinit_lge_sdm845
 
 # Kernel
@@ -156,6 +156,13 @@ BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 # QCOM
 BOARD_USES_QCOM_HARDWARE := true
 
+# Updater
+AB_OTA_UPDATER := true
+AB_OTA_PARTITIONS := \
+  boot \
+  system \
+  vendor
+
 # Recovery
 BOARD_USES_RECOVERY_AS_BOOT := true
 TARGET_NO_RECOVERY := true
@@ -173,14 +180,18 @@ ENABLE_VENDOR_RIL_SERVICE := true
 TARGET_RIL_VARIANT := caf
 
 # Sepolicy
-include device/qcom/sepolicy_vndr/SEPolicy.mk
+#include device/qcom/sepolicy_vndr/SEPolicy.mk
 #SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
 #SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/public
-BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
-SELINUX_IGNORE_NEVERALLOWS := true
+#BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
+#SELINUX_IGNORE_NEVERALLOWS := true
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += $(VENDOR_PATH)
+PRODUCT_SOONG_NAMESPACES += $(COMMON_PATH)
+PRODUCT_SOONG_NAMESPACES += system/core/init
+PRODUCT_SOONG_NAMESPACES += packages/modules/Virtualization/microdroid
+
 
 # Treble
 BOARD_VNDK_VERSION := current
@@ -210,6 +221,27 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 # Broken R
 BUILD_BROKEN_PREBUILT_ELF_FILES := true
 BUILD_BROKEN_VINTF_PRODUCT_COPY_FILES := true
+
+# Bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
+
+# Camera
+TARGET_USES_YCRCB_VENUS_CAMERA_PREVIEW := true
+
+# Kernel
+BOARD_KERNEL_CMDLINE += androidboot.hardware=judyln
+TARGET_KERNEL_CONFIG := lineageos_judyln_defconfig
+
+# Partitions
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 48708296704
+BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
+BOARD_VENDORIMAGE_PARTITION_SIZE := 1048576000
+
+# Recovery
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.judyln
+TARGET_RECOVERY_WIPE := $(DEVICE_PATH)/recovery/recovery.wipe
+
+#TARGET_PREBUILT_RECOVERY_RAMDISK_CPIO := $(DEVICE_PATH)/ramdisk-recovery.cpio
 
 # Inherit from the proprietary version
 -include vendor/lge/sdm845-common/BoardConfigVendor.mk
