@@ -15,7 +15,7 @@
 #
 
 # Inherit proprietary blobs
-$(call inherit-product-if-exists, vendor/lge/sdm845-common/sdm845-common-vendor.mk)
+$(call inherit-product, vendor/lge/sdm845-common/sdm845-common-vendor.mk)
 
 COMMON_PATH := device/lge/sdm845-common
 
@@ -228,7 +228,7 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.2-service \
+    android.hardware.graphics.composer@2.3-service \
     android.hardware.graphics.mapper@2.0-impl-qti-display \
     vendor.qti.hardware.display.allocator-service \
     android.hardware.memtrack@1.0-impl \
@@ -452,7 +452,6 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.2 \
     android.hardware.power@1.2.vendor \
     android.hardware.power-service.lge-libperfmgr \
     android.hardware.power.stats@1.0-service.lge
@@ -528,7 +527,7 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/google/interfaces \
     hardware/google/pixel \
-    hardware/lge/
+    hardware/lge
 
 # Telephony
 PRODUCT_PACKAGES += \
@@ -543,15 +542,23 @@ PRODUCT_BOOT_JARS += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.lge_sdm845
+    android.hardware.light@2.0-service.lge
 
-# LiveDisplay
+# Live Display
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.1-service.lge_sdm845
+    vendor.lineage.livedisplay@2.0-service.lge
+
+# Lineage Health
+PRODUCT_PACKAGES += \
+    vendor.lineage.health-service.default
 
 # Touch
 PRODUCT_PACKAGES += \
     vendor.lineage.touch@1.0-service.lge_sdm845
+
+# Trust HAL
+PRODUCT_PACKAGES += \
+    vendor.lineage.trust@1.0-service
 
 # USB
 PRODUCT_PACKAGES += \
@@ -564,7 +571,7 @@ PRODUCT_PACKAGES += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.3-service.lge
+    android.hardware.vibrator-service.lge
 
 # WiFi
 PRODUCT_PACKAGES += \

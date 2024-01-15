@@ -16,8 +16,10 @@
 
 COMMON_PATH := device/lge/sdm845-common
 
-# inherit from common lge
--include device/lge/common/BoardConfigCommon.mk
+BOARD_VENDOR := lge
+
+# Inherit from the proprietary version
+include vendor/lge/sdm845-common/BoardConfigVendor.mk
 
 # Architecture
 TARGET_ARCH := arm64
@@ -95,6 +97,9 @@ USE_DEVICE_SPECIFIC_GPS := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
 
+# Health
+TARGET_HEALTH_CHARGING_CONTROL_CHARGING_PATH := /sys/class/power_supply/battery/battery_charging_enabled
+
 # HIDL
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml
 DEVICE_MATRIX_FILE += $(COMMON_PATH)/compatibility_matrix.xml
@@ -171,12 +176,12 @@ ENABLE_VENDOR_RIL_SERVICE := true
 #TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
 TARGET_RIL_VARIANT := caf
 
-# Sepolicy
+# SELinux
 include device/qcom/sepolicy_vndr-legacy-um/SEPolicy.mk
+include hardware/lge/sepolicy/SEPolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
-PRODUCT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
-PRODUCT_PUBLIC_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/public
-SELINUX_IGNORE_NEVERALLOWS := true
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
+SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/public
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += $(VENDOR_PATH)
@@ -212,6 +217,3 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 # Broken R
 BUILD_BROKEN_PREBUILT_ELF_FILES := true
 BUILD_BROKEN_VINTF_PRODUCT_COPY_FILES := true
-
-# Inherit from the proprietary version
--include vendor/lge/sdm845-common/BoardConfigVendor.mk

@@ -122,6 +122,8 @@ dev.pm.dyn_samplingrate=1
 ro.sf.lcd_density=560
 ro.vendor.display.cabl=0
 vendor.display.enable_default_color_mode=1
+vendor.display.use_layer_ext=1
+vendor.display.disable_scaler=1
 persist.sys.sf.native_mode=0 
 
 # DRM

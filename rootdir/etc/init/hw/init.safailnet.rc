@@ -3,5 +3,5 @@
 # Ported to ramdisk by jhenrique09
 
 on boot
-    # selinux nodes, hide permissive state
+    # hide selinux node
     chmod 0440 /sys/fs/selinux/policy
