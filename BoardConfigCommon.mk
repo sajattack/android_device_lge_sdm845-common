@@ -16,8 +16,6 @@
 
 COMMON_PATH := device/lge/sdm845-common
 
-BOARD_VENDOR := lge
-
 # Inherit from the proprietary version
 include vendor/lge/sdm845-common/BoardConfigVendor.mk
 
@@ -41,6 +39,7 @@ TARGET_BOOTLOADER_BOARD_NAME := sdm845
 TARGET_NO_BOOTLOADER := true
 
 # Platform
+BOARD_VENDOR := lge
 TARGET_BOARD_PLATFORM := sdm845
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno630
 
@@ -169,6 +168,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 TARGET_USES_MKE2FS := true
 
 # Metadata
+BOARD_ROOT_EXTRA_FOLDERS += metadata
 BOARD_USES_METADATA_PARTITION := true
 
 # RIL

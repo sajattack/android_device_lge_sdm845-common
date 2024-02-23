@@ -38,7 +38,9 @@ allow qti_init_shell vfat:dir read;
 allow qti_init_shell vfat:file r_file_perms;
 allow qti_init_shell proc_sysctl_schedboost:file w_file_perms;
 allow qti_init_shell sysfs:file write;
-allow qti_init_shell configfs:dir { add_name write };
+allow qti_init_shell configfs:dir { create add_name write };
+allow qti_init_shell configfs:file create_file_perms;
+allow qti_init_shell configfs:lnk_file create;
 
 #============= qtidataservices_app ==============
 allow qtidataservices_app self:socket create_socket_perms_no_ioctl;

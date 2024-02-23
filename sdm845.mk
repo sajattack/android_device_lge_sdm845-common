@@ -110,7 +110,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.common@6.0-util \
     android.hardware.audio.effect@2.0-impl \
     android.hardware.audio.effect@6.0-impl \
-    android.hardware.bluetooth.audio-impl \
     audio.r_submix.default \
     audio.usb.default \
     libaudio-resampler \
@@ -161,6 +160,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0 \
     android.hardware.bluetooth@1.0.vendor \
+    android.hardware.bluetooth.audio-impl \
     audio.bluetooth.default \
     liba2dpoffload \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor \
@@ -583,8 +583,7 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf
 
 PRODUCT_PACKAGES += \
-    WifiResCommon \
-    AospWifiResOverlay
+    WifiOverlay
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
